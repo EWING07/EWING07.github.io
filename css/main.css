@@ -6,14 +6,14 @@ header,
   overflow-wrap: break-word;
 }
 body {
-  background-color: #eee;
-  color: #3c4858;
+  background-color: #282c37;
+  color: #d9e1e8;
 }
 body a {
-  color: #3c4858;
+  color: #d9e1e8;
 }
 body a:hover {
-  color: #1abc9c;
+  color: #2b90d9;
 }
 img[srcset] {
   object-fit: cover;
@@ -107,10 +107,10 @@ img[srcset] {
   color: white;
 }
 .top-nav-collapse {
-  background-color: #2f4154;
+  background-color: #9baec8;
 }
 .navbar-col-show {
-  background-color: #2f4154;
+  background-color: #9baec8;
 }
 @media (max-width: 767px) {
   .navbar {
@@ -526,11 +526,11 @@ h6::before {
   font-size: 15px;
 }
 .tocbot-link {
-  color: #3c4858;
+  color: #d9e1e8;
 }
 .tocbot-active-link {
   font-weight: 600;
-  color: #1abc9c;
+  color: #2b90d9;
 }
 .tocbot-is-collapsible {
   max-height: 1000px;
@@ -599,7 +599,7 @@ h6::before {
   font-weight: 400;
 }
 .tagcloud a:hover {
-  color: #1abc9c !important;
+  color: #2b90d9 !important;
 }
 .links .card {
   box-shadow: none;
