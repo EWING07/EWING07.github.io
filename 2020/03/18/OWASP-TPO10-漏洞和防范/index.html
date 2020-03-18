@@ -13,6 +13,8 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
   <meta name="theme-color" content="#9baec8">
   <meta name="description" content="human being">
   <meta name="author" content="Yanwen Huang">
@@ -406,7 +408,7 @@
 <li>用于搜索一些特定组件的漏洞的好地方就是厂商的网站：它们通常拥有“发布说明”部分，其中它们会公布它们纠正了哪个 bug 或漏洞。这里我们可以寸照我们所使用的（或更新的）版本，并且插件是否有有已知的问题没有打补丁。</li>
 <li>同样，厂商通常拥有安全建议站点，例如 <a href="https://technet.microsoft.com/library/security/" target="_blank" rel="noopener">Microsoft</a>，<a href="https://developer.joomla.org/security-centre.html" target="_blank" rel="noopener">Joomla</a>，<a href="http://www.oracle.com/technetwork/topics/security/alerts-086861.html" target="_blank" rel="noopener">Oracle</a>。我们可以使用它们来保持我们用于应用的软件的更新。</li>
 <li>也有一些厂商无关的站点，它们致力于通知我们漏洞和安全问题。有个非常好的网站，集中了多个来源的信息，是<a href="http://www.cvedetails.com/" target="_blank" rel="noopener">CVE Details</a>。这里我们可以搜索多数厂商或产品，或者列出所有已知漏洞（至少是拥有 CVE 号码的漏洞），并且按照年份、版本和 CVSS 分数排列。</li>
-<li>同时，黑客发布利用和发现的站点也是个获得漏洞和我们所使用的软件的信息的好地方。最流行的是 <a href="https://www.exploit-db.com/" target="_blank" rel="noopener">Exploit DB</a>。 <a href="http://seclists.org/fulldisclosure/" target="_blank" rel="noopener">Full disclosure 邮件列表</a>，以及 <a href="https://packetstormsecurity.com/files/" target="_blank" rel="noopener">Packet Storm 的文件部分（</a>。</li>
+<li>同时，黑客发布利用和发现的站点也是个获得漏洞和我们所使用的软件的信息的好地方。最流行的是 <a href="https://www.exploit-db.com/" target="_blank" rel="noopener">Exploit DB</a>。 <a href="http://seclists.org/fulldisclosure/" target="_blank" rel="noopener">Full disclosure 邮件列表</a>，以及 <a href="https://packetstormsecurity.com/files/" target="_blank" rel="noopener">Packet Storm 的文件部分</a>。</li>
 <li>一旦我们发现了我们软件组件中的漏洞，我们必须评估它是否对我们的应用必要，或者需要移除。如果不能这样，我们需要尽快打补丁。如果没有可用的补丁或变通方案，并且漏洞是高危的，我们必须开始寻找组件的替代。</li>
 </ul>
 <h4 id="工作原理-8"><a href="#工作原理-8" class="headerlink" title="工作原理"></a>工作原理</h4><p>考虑在我们的应用中使用三方软件组件之前，我们需要查看它的安全信息，并了解，我们所使用的组件是否有更稳定更安全的版本或替代。</p>
