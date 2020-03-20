@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#9baec8">
+  <meta name="description" content="human being">
+  <meta name="author" content="Yanwen Huang">
+  <meta name="keywords" content="Blog">
+  <title>计算机网络 - Ian House</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link  rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css" />
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Ian's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">Archives</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">Categories</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">Tags</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  Friday, March 20th 2020, 8:49 pm
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    4.4k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      15 分钟
+                  </span>
+                
+
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <h4 id="TCP保证可靠性"><a href="#TCP保证可靠性" class="headerlink" title="TCP保证可靠性"></a>TCP保证可靠性</h4><ol>
+<li><p>序列号、确认应答、超时重传</p>
+<p> 数据到达接收方，接收方需要发出一个确认应答，表示已经收到该数据段，并且确认序号会说明了它下一次需要接收的数据序列号。如果发送发迟迟未收到确认应答，那么可能是发送的数据丢失，也可能是确认应答丢失，这时发送方在等待一定时间后会进行重传。这个时间一般是2*RTT(报文段往返时间）+一个偏差值。</p>
+</li>
+<li><p>窗口控制与高速重发控制/快速重传（重复确认应答）</p>
+<p> TCP会利用窗口控制来提高传输速度，意思是在一个窗口大小内，不用一定要等到应答才能发送下一段数据，窗口大小就是无需等待确认而可以继续发送数据的最大值。如果不使用窗口控制，每一个没收到确认应答的数据都要重发。</p>
+<p> 使用窗口控制，如果数据段1001-2000丢失，后面数据每次传输，确认应答都会不停地发送序号为1001的应答，表示我要接收1001开始的数据，发送端如果收到3次相同应答，就会立刻进行重发；但还有种情况有可能是数据都收到了，但是有的应答丢失了，这种情况不会进行重发，因为发送端知道，如果是数据段丢失，接收端不会放过它的，会疯狂向它提醒……</p>
+</li>
+<li><p>拥塞控制</p>
+<p> 如果把窗口定的很大，发送端连续发送大量的数据，可能会造成网络的拥堵（大家都在用网，你在这狂发，吞吐量就那么大，当然会堵），甚至造成网络的瘫痪。所以TCP在为了防止这种情况而进行了拥塞控制。</p>
+<p> 慢启动：定义拥塞窗口，一开始将该窗口大小设为1，之后每次收到确认应答（经过一个rtt），将拥塞窗口大小*2。</p>
+<p> 拥塞避免：设置慢启动阈值，一般开始都设为65536。拥塞避免是指当拥塞窗口大小达到这个阈值，拥塞窗口的值不再指数上升，而是加法增加（每次确认应答/每个rtt，拥塞窗口大小+1），以此来避免拥塞。</p>
+<p> 将报文段的超时重传看做拥塞，则一旦发生超时重传，我们需要先将阈值设为当前窗口大小的一半，并且将窗口大小设为初值1，然后重新进入慢启动过程。</p>
+<p> 快速重传：在遇到3次重复确认应答（高速重发控制）时，代表收到了3个报文段，但是这之前的1个段丢失了，便对它进行立即重传。</p>
+<p> 然后，先将阈值设为当前窗口大小的一半，然后将拥塞窗口大小设为慢启动阈值+3的大小。</p>
+<p> 这样可以达到：在TCP通信时，网络吞吐量呈现逐渐的上升，并且随着拥堵来降低吞吐量，再进入慢慢上升的过程，网络不会轻易的发生瘫痪。</p>
+<p> 采用慢开始和拥塞避免算法的时候</p>
+<ul>
+<li><p>一旦cwnd&gt;慢开始门限，就采用拥塞避免算法，减慢增长速度</p>
+</li>
+<li><p>一旦出现丢包的情况，就重新进行慢开始，减慢增长速度</p>
+<p>采用快恢复和快重传算法的时候</p>
+</li>
+<li><p>一旦cwnd&gt;慢开始门限，就采用拥塞避免算法，减慢增长速度</p>
+</li>
+<li><p>一旦发送方连续收到了三个重复确认，就采用拥塞避免算法，减慢增长速度</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="TCP建立连接和断开连接的过程："><a href="#TCP建立连接和断开连接的过程：" class="headerlink" title="TCP建立连接和断开连接的过程："></a>TCP建立连接和断开连接的过程：</h4><p><img src="/img/TCP.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li><p>三次握手：</p>
+<ol>
+<li><p>Client将标志位SYN置为1，随机产生一个值seq=J，并将该数据包发送给Server，Client进入SYN_SENT状态，等待Server确认。</p>
+</li>
+<li><p>Server收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN和ACK都置为1，ack=J+1，随机产生一个值seq=K，并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。</p>
+</li>
+<li><p>Client收到确认后，检查ack是否为J+1，ACK是否为1，如果正确则将标志位ACK置为1，ack=K+1，并将该数据包发送给Server，Server检查ack是否为K+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。</p>
+<p>三次握手的原因：三次握手可以防止已经失效的连接请求报文突然又传输到服务器端导致的服务器资源浪费。例如，客户端先发送了一个SYN，但是由于网络阻塞，该SYN数据包在某个节点长期滞留。然后客户端又重传SYN数据包并正确建立TCP连接，然后传输完数据后关闭该连接。该连接释放后失效的SYN数据包才到达服务器端。在二次握手的前提下，服务器端会认为这是客户端发起的又一次请求，然后发送SYN ，并且在服务器端创建socket套接字，一直等待客户端发送数据。但是由于客户端并没有发起新的请求，所以会丢弃服务端的SYN 。此时服务器会一直等待客户端发送数据从而造成资源浪费。</p>
+</li>
+</ol>
+</li>
+<li><p>四次挥手：</p>
+<p>  由于TCP连接时全双工的，因此，每个方向都必须要单独进行关闭，这一原则是当一方完成数据发送任务后，发送一个FIN来终止这一方向的连接，收到一个FIN只是意味着这一方向上没有数据流动了，即不会再收到数据了，但是在这个TCP连接上仍然能够发送数据，直到这一方向也发送了FIN。首先进行关闭的一方将执行主动关闭，而另一方则执行被动关闭。</p>
+<ol>
+<li><p>数据传输结束后，客户端的应用进程发出连接释放报文段，并停止发送数据，客户端进入FIN_WAIT_1状态，此时客户端依然可以接收服务器发送来的数据。</p>
+</li>
+<li><p>服务器接收到FIN后，发送一个ACK给客户端，确认序号为收到的序号+1，服务器进入CLOSE_WAIT状态。客户端收到后进入FIN_WAIT_2状态。</p>
+</li>
+<li><p>当服务器没有数据要发送时，服务器发送一个FIN报文，此时服务器进入LAST_ACK状态，等待客户端的确认</p>
+</li>
+<li><p>客户端收到服务器的FIN报文后，给服务器发送一个ACK报文，确认序列号为收到的序号+1。此时客户端进入TIME_WAIT状态，等待2MSL（MSL：报文段最大生存时间），然后关闭连接。</p>
+<p>四次挥手的原因：由于连接的关闭控制权在应用层，所以被动关闭的一方在接收到FIN包时，TCP协议栈会直接发送一个ACK确认包，优先关闭一端的通信。然后通知应用层，由应用层决定什么时候发送FIN包。应用层可以使用系统调用函数read==0来判断对端是否关闭连接。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="HTTP和HTTPS的区别"><a href="#HTTP和HTTPS的区别" class="headerlink" title="HTTP和HTTPS的区别"></a>HTTP和HTTPS的区别</h4><ol>
+<li><p>HTTP协议是以明文的方式在网络中传输数据，而HTTPS协议传输的数据则是经过TLS加密后的，HTTPS具有更高的安全性</p>
+</li>
+<li><p>HTTPS在TCP三次握手阶段之后，还需要进行SSL 的handshake，协商加密使用的对称加密密钥</p>
+</li>
+<li><p>HTTPS协议需要服务端申请证书，浏览器端安装对应的根证书</p>
+</li>
+<li><p>HTTP协议端口是80，HTTPS协议端口是443</p>
+</li>
+</ol>
+<h4 id="HTTPS优缺点"><a href="#HTTPS优缺点" class="headerlink" title="HTTPS优缺点"></a>HTTPS优缺点</h4><ul>
+<li><p>优点：</p>
+<p>  HTTPS传输数据过程中使用密钥进行加密，所以安全性更高</p>
+<p>  HTTPS协议可以认证用户和服务器，确保数据发送到正确的用户和服务器</p>
+</li>
+<li><p>缺点：</p>
+<p>  HTTPS握手阶段延时较高：由于在进行HTTP会话之前还需要进行SSL握手，因此HTTPS协议握手阶段延时增加</p>
+<p>  HTTPS部署成本高：一方面HTTPS协议需要使用证书来验证自身的安全性，所以需要购买CA证书；另一方面由于采用HTTPS协议需要进行加解密的计算，占用CPU资源较多，需要的服务器配置或数目高</p>
+</li>
+</ul>
+<h4 id="IP地址和MAC地址的作用"><a href="#IP地址和MAC地址的作用" class="headerlink" title="IP地址和MAC地址的作用"></a>IP地址和MAC地址的作用</h4><p>MAC地址是一个硬件地址，用来定义网络设备的位置，主要由数据链路层负责。而IP地址是IP协议提供的一种统一的地址格式，为互联网上的每一个网络和每一台主机分配一个逻辑地址，以此来屏蔽物理地址的差异。</p>
+<h4 id="OSI七层模型和TCP-IP四层模型，每层列举两个协议"><a href="#OSI七层模型和TCP-IP四层模型，每层列举两个协议" class="headerlink" title="OSI七层模型和TCP/IP四层模型，每层列举两个协议"></a>OSI七层模型和TCP/IP四层模型，每层列举两个协议</h4><ol>
+<li>OSI七层模型及其包含的协议如下：</li>
+</ol>
+<ul>
+<li><p>物理层: 通过媒介传输比特,确定机械及电气规范,传输单位为bit，主要包括的协议为：IEE802.3 CLOCK RJ45</p>
+</li>
+<li><p>数据链路层: 将比特组装成帧和点到点的传递,传输单位为帧,主要包括的协议为MAC VLAN PPP</p>
+</li>
+<li><p>网络层：负责数据包从源到宿的传递和网际互连，传输单位为包,主要包括的协议为IP ARP ICMP</p>
+</li>
+</ul>
+<ul>
+<li><p>传输层：提供端到端的可靠报文传递和错误恢复，传输单位为报文,主要包括的协议为TCP UDP</p>
+</li>
+<li><p>会话层：建立、管理和终止会话，传输单位为SPDU，主要包括的协议为RPC NFS</p>
+</li>
+<li><p>表示层: 对数据进行翻译、加密和压缩,传输单位为PPDU，主要包括的协议为JPEG ASII</p>
+</li>
+<li><p>应用层: 允许访问OSI环境的手段,传输单位为APDU，主要包括的协议为FTP HTTP DNS</p>
+</li>
+</ul>
+<ol start="2">
+<li><p>TCP/IP 4层模型包括：</p>
+<p> 网络接口层：MAC VLAN</p>
+<p> 网络层:IP ARP ICMP</p>
+<p> 传输层:TCP UDP</p>
+<p> 应用层:HTTP DNS SMTP</p>
+</li>
+</ol>
+<h4 id="TCP握手为什么两次不可以，为什么不用四次"><a href="#TCP握手为什么两次不可以，为什么不用四次" class="headerlink" title="TCP握手为什么两次不可以，为什么不用四次"></a>TCP握手为什么两次不可以，为什么不用四次</h4><ul>
+<li><p>两次不可以：tcp是全双工通信，两次握手只能确定单向数据链路是可以通信的，并不能保证反向的通信正常</p>
+</li>
+<li><p>四次不可以：</p>
+<p>  本来握手应该和挥手一样都是需要确认两个方向都能联通的，本来模型应该是：</p>
+<ol>
+<li><p>客户端发送syn0给服务器</p>
+</li>
+<li><p>服务器收到syn0，回复ack(syn0+1)</p>
+</li>
+<li><p>服务器发送syn1</p>
+</li>
+<li><p>客户端收到syn1，回复ack(syn1+1)</p>
+<p>因为tcp是全双工的，上边的四部确认了数据在两个方向上都是可以正确到达的，但是2，3步没有没有上下的联系，可以将其合并，加快握手效率，所有就变成了3步握手。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="TCP和UDP的区别和各自适用的场景"><a href="#TCP和UDP的区别和各自适用的场景" class="headerlink" title="TCP和UDP的区别和各自适用的场景"></a>TCP和UDP的区别和各自适用的场景</h4><ol>
+<li><p>TCP和UDP区别</p>
+<p> 1） 连接</p>
+<p> TCP是面向连接的传输层协议，即传输数据之前必须先建立好连接。</p>
+<p> UDP无连接。</p>
+<p> 2） 服务对象</p>
+<p> TCP是点对点的两点间服务，即一条TCP连接只能有两个端点；</p>
+<p> UDP支持一对一，一对多，多对一，多对多的交互通信。</p>
+<p> 3） 可靠性</p>
+<p> TCP是可靠交付：无差错，不丢失，不重复，按序到达。</p>
+<p> UDP是尽最大努力交付，不保证可靠交付。</p>
+<p> 4）拥塞控制，流量控制</p>
+<p> TCP有拥塞控制和流量控制保证数据传输的安全性。</p>
+<p> UDP没有拥塞控制，网络拥塞不会影响源主机的发送效率。</p>
+<p> 5） 报文长度</p>
+<p> TCP是动态报文长度，即TCP报文长度是根据接收方的窗口大小和当前网络拥塞情况决定的。</p>
+<p> UDP面向报文，不合并，不拆分，保留上面传下来报文的边界。</p>
+<p> 6)   首部开销</p>
+<p> TCP首部开销大，首部20个字节。</p>
+<p> UDP首部开销小，8字节。（源端口，目的端口，数据长度，校验和）</p>
+</li>
+<li><p>TCP和UDP适用场景</p>
+<p> 从特点上我们已经知道，TCP 是可靠的但传输速度慢，UDP 是不可靠的但传输速度快。因此在选用具体协议通信时，应该根据通信数据的要求而决定。</p>
+<p> 若通信数据完整性需让位与通信实时性，则应该选用TCP 协议（如文件传输、重要状态的更新等）；反之，则使用 UDP 协议（如视频传输、实时通信等）。</p>
+</li>
+</ol>
+<h4 id="HTTP请求-响应的步骤如下："><a href="#HTTP请求-响应的步骤如下：" class="headerlink" title="HTTP请求/响应的步骤如下："></a>HTTP请求/响应的步骤如下：</h4><ol>
+<li>客户端连接到Web服务器</li>
+</ol>
+<p>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，<a href="http://www.baidu.com。" target="_blank" rel="noopener">http://www.baidu.com。</a></p>
+<ol start="2">
+<li>发送HTTP请求</li>
+</ol>
+<p>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</p>
+<ol start="3">
+<li>服务器接受请求并返回HTTP响应</li>
+</ol>
+<p>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</p>
+<ol start="4">
+<li>释放连接TCP连接</li>
+</ol>
+<p>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keep alive，则该连接会保持一段时间，在该时间内可以继续接收请求;</p>
+<ol start="5">
+<li>客户端浏览器解析HTML内容</li>
+</ol>
+<p>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</p>
+<ol start="6">
+<li><p>举例：<br> 在浏览器地址栏键入URL，按下回车之后会经历以下流程：</p>
+<ul>
+<li><p>浏览器向 DNS 服务器请求解析该 URL 中的域名所对应的 IP 地址；</p>
+</li>
+<li><p>解析出 IP 地址后，根据该 IP 地址和默认端口80，和服务器建立TCP连接；</p>
+</li>
+<li><p>浏览器发出读取文件（URL中域名后面部分对应的文件）的HTTP 请求，该请求报文作为 TCP 三次握手的第三个报文的数据发送给服务器；</p>
+</li>
+<li><p>服务器对浏览器请求作出响应，并把对应的 html 文本发送给浏览器；</p>
+</li>
+<li><p>释放 TCP连接；</p>
+</li>
+<li><p>浏览器将该 html 文本并显示内容；</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="socket编程中服务器端和客户端主要用到哪些函数"><a href="#socket编程中服务器端和客户端主要用到哪些函数" class="headerlink" title="socket编程中服务器端和客户端主要用到哪些函数"></a>socket编程中服务器端和客户端主要用到哪些函数</h4><ul>
+<li><p>基于TCP的socket</p>
+<ol>
+<li>服务器端程序<ul>
+<li>1 创建一个socket，用函数socket()</li>
+<li>2 绑定IP地址、端口等信息到socket上，用函数bind()</li>
+<li>3 设置允许的最大连接数，用函数listen()</li>
+<li>4 接收客户端上来的连接，用函数accept()</li>
+<li>5 收发数据，用函数send()和recv()，或者read()和write()</li>
+<li>6 关闭网络连接</li>
+</ul>
+</li>
+<li>客户端程序<ul>
+<li>1 创建一个socket，用函数socket()</li>
+<li>2 设置要连接的对方的IP地址和端口等属性</li>
+<li>3 连接服务器，用函数connect()</li>
+<li>4 收发数据，用函数send()和recv()，或read()和write()</li>
+<li>5 关闭网络连接<br><img src="/img/TCP_socket.png" srcset="/img/loading.gif" alt=""></li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>基于UDP的socket</p>
+<ol>
+<li>服务器端程序<ul>
+<li>1建立套接字文件描述符，使用函数socket()，生成套接字文件描述符。</li>
+<li>2设置服务器地址和侦听端口，初始化要绑定的网络地址结构。</li>
+<li>3绑定侦听端口，使用bind()函数，将套接字文件描述符和一个地址类型变量进行绑定。</li>
+<li>4接收客户端的数据，使用recvfrom()函数接收客户端的网络数据。</li>
+<li>5向客户端发送数据，使用sendto()函数向服务器主机发送数据。</li>
+<li>6关闭套接字，使用close()函数释放资源。UDP协议的客户端流程</li>
+</ul>
+</li>
+<li>客户端流程<ul>
+<li>1建立套接字文件描述符，socket()。</li>
+<li>2设置服务器地址和端口，struct sockaddr。</li>
+<li>3向服务器发送数据，sendto()。</li>
+<li>4接收服务器的数据，recvfrom()。</li>
+<li>5关闭套接字，close()。<br><img src="/img/UDP_socket.png" srcset="/img/loading.gif" alt=""></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="阻塞，非阻塞，同步，异步"><a href="#阻塞，非阻塞，同步，异步" class="headerlink" title="阻塞，非阻塞，同步，异步"></a>阻塞，非阻塞，同步，异步</h4><p>阻塞和非阻塞：调用者在事件没有发生的时候，一直在等待事件发生，不能去处理别的任务这是阻塞。调用者在事件没有发生的时候，可以去处理别的任务这是非阻塞。</p>
+<p>同步和异步：调用者必须循环自去查看事件有没有发生，这种情况是同步。调用者不用自己去查看事件有没有发生，而是等待着注册在事件上的回调函数通知自己，这种情况是异步</p>
+<h4 id="TCP-IP数据链路层的交互过程"><a href="#TCP-IP数据链路层的交互过程" class="headerlink" title="TCP/IP数据链路层的交互过程"></a>TCP/IP数据链路层的交互过程</h4><p>网络层等到数据链层用mac地址作为通信目标，数据包到达网络等准备往数据链层发送的时候，首先会去自己的arp缓存表(存着ip-mac对应关系)去查找改目标ip的mac地址，如果查到了，就讲目标ip的mac地址封装到链路层数据包的包头。如果缓存中没有找到，会发起一个广播：who is ip XXX tell ip XXX,所有收到的广播的机器看这个ip是不是自己的，如果是自己的，则以单拨的形式将自己的mac地址回复给请求的机器</p>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "计算机网络&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
