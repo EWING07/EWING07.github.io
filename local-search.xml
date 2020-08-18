@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>libpcap文件格式分析</title>
+    <link href="/2020/03/25/libpcap%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E5%88%86%E6%9E%90/"/>
+    <url>/2020/03/25/libpcap%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E5%88%86%E6%9E%90/</url>
+    
+    <content type="html"><![CDATA[<h3 id="1-基本格式："><a href="#1-基本格式：" class="headerlink" title="1. 基本格式："></a>1. 基本格式：</h3><p>文件头 数据包头数据报</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>security</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>security</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>数据库</title>
     <link href="/2020/03/21/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     <url>/2020/03/21/%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
